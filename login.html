@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Care - Sign In</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFFFFF;
+            color: #111111;
+            line-height: 1.6;
+        }
+
+        .auth-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .left-panel {
+            width: 54%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(10, 20, 40, 0.85), rgba(0, 0, 0, 0.9)),
+                        url('hero-car.jpg') center center / cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding: 60px 80px;
+            position: relative;
+        }
+
+        .left-content {
+            max-width: 500px;
+            z-index: 1;
+        }
+
+        .top-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 50px;
+        }
+
+        .car-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tagline {
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .welcome-heading {
+            color: #FFFFFF;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .welcome-description {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 400px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            font-weight: 400;
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #1717FF;
+            font-weight: 600;
+        }
+
+        .right-panel {
+            width: 46%;
+            min-height: 100vh;
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 80px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .form-heading {
+            color: #111111;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .form-subtitle {
+            color: #777777;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            color: #111111;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            border: 1px solid #BDBDBD;
+            border-radius: 8px;
+            background-color: #FFFFFF;
+            color: #111111;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-wrapper input:focus {
+            border-color: #1717FF;
+            box-shadow: 0 0 0 3px rgba(23, 23, 255, 0.1);
+        }
+
+        .input-wrapper input::placeholder {
+            color: #BDBDBD;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-password svg {
+            transition: all 0.3s ease;
+        }
+
+        .toggle-password:hover svg {
+            opacity: 0.7;
+        }
+
+        .error-message {
+            color: #FF4444;
+            font-size: 12px;
+            font-weight: 400;
+            min-height: 16px;
+            display: block;
+        }
+
+        .input-wrapper input.error {
+            border-color: #FF4444;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: -8px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #777777;
+            font-weight: 400;
+            user-select: none;
+        }
+
+        .remember-me input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-custom {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #BDBDBD;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background-color: #FFFFFF;
+        }
+
+        .remember-me input[type="checkbox"]:checked + .checkbox-custom {
+            background-color: #1717FF;
+            border-color: #1717FF;
+        }
+
+        .remember-me input[type="checkbox"]:checked + .checkbox-custom::after {
+            content: '✓';
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .forgot-password {
+            color: #1717FF;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            background-color: #1717FF;
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(23, 23, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #1313E6;
+            box-shadow: 0 4px 12px rgba(23, 23, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-google {
+            background-color: #FFFFFF;
+            color: #111111;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-google:hover {
+            background-color: #FAFAFA;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .btn-google:active {
+            transform: translateY(0);
+        }
+
+        .separator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #E0E0E0;
+        }
+
+        .separator span {
+            padding: 0 16px;
+            color: #777777;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .create-account {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .create-account p {
+            color: #777777;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .create-link {
+            color: #1717FF;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .create-link:hover {
+            text-decoration: underline;
+        }
+
+        .message-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 16px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 300px;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .message.success {
+            background-color: #4CAF50;
+            color: #FFFFFF;
+        }
+
+        .message.error {
+            background-color: #FF4444;
+            color: #FFFFFF;
+        }
+
+        .message.info {
+            background-color: #2196F3;
+            color: #FFFFFF;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .left-panel {
+                width: 50%;
+                padding: 40px 50px;
+            }
+
+            .right-panel {
+                width: 50%;
+                padding: 40px 50px;
+            }
+
+            .welcome-heading {
+                font-size: 36px;
+            }
+
+            .form-container {
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+            }
+
+            .left-panel {
+                width: 100%;
+                min-height: auto;
+                padding: 30px 20px;
+                background: linear-gradient(135deg, rgba(10, 20, 40, 0.9), rgba(0, 0, 0, 0.95)),
+                            url('hero-car.jpg') center center / cover no-repeat;
+            }
+
+            .left-content {
+                max-width: 100%;
+            }
+
+            .top-section {
+                margin-bottom: 20px;
+            }
+
+            .welcome-heading {
+                font-size: 28px;
+                margin-bottom: 12px;
+            }
+
+            .welcome-description {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .feature-list {
+                display: none;
+            }
+
+            .right-panel {
+                width: 100%;
+                min-height: auto;
+                padding: 30px 20px;
+            }
+
+            .form-container {
+                max-width: 100%;
+            }
+
+            .form-heading {
+                font-size: 24px;
+            }
+
+            .form-subtitle {
+                font-size: 13px;
+                margin-bottom: 24px;
+            }
+
+            .auth-form {
+                gap: 20px;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 15px;
+            }
+
+            .message {
+                min-width: calc(100vw - 40px);
+                max-width: calc(100vw - 40px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-panel {
+                padding: 20px 15px;
+            }
+
+            .right-panel {
+                padding: 20px 15px;
+            }
+
+            .welcome-heading {
+                font-size: 24px;
+            }
+
+            .form-heading {
+                font-size: 22px;
+            }
+
+            .input-wrapper input {
+                padding: 12px 14px 12px 44px;
+                font-size: 13px;
+            }
+
+            .input-icon {
+                left: 14px;
+            }
+
+            .toggle-password {
+                right: 14px;
+            }
+        }
+
+        /* Footer for auth pages */
+        .site-footer {
+            background: #062B60;
+            color: #fff;
+            padding: 30px 0 20px;
+            text-align: center;
+        }
+
+        .site-footer p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        .site-footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="left-panel">
+            <div class="left-content">
+                <div class="top-section">
+                    <div class="car-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 6H17L15.3 3.4C15.1 3.1 14.7 3 14.3 3H9.7C9.3 3 8.9 3.1 8.7 3.4L7 6H5C3.9 6 3 6.9 3 8V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V8C21 6.9 20.1 6 19 6ZM12 17C9.8 17 8 15.2 8 13C8 10.8 9.8 9 12 9C14.2 9 16 10.8 16 13C16 15.2 14.2 17 12 17Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <p class="tagline">Drive Better. Stay Longer.</p>
+                </div>
+                <h1 class="welcome-heading">Welcome Back!</h1>
+                <p class="welcome-description">Sign into your account to access our services and manage your vehicle.</p>
+                <ul class="feature-list">
+                    <li>Book Services & Repairs</li>
+                    <li>Buy Genuine Parts</li>
+                    <li>Track Orders</li>
+                    <li>Manage Your Vehicle</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="form-container">
+                <h2 class="form-heading">Sign In</h2>
+                <p class="form-subtitle">Enter your email and password to continue</p>
+
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="#777777"/>
+                                </svg>
+                            </span>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        </div>
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 8H17V6C17 3.2 14.8 1 12 1C9.2 1 7 3.2 7 6V8H6C4.9 8 4 8.9 4 10V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V10C20 8.9 19.1 8 18 8ZM12 17C10.9 17 10 16.1 10 15C10 13.9 10.9 13 12 13C13.1 13 14 13.9 14 15C14 16.1 13.1 17 12 17ZM15 8H9V6C9 4.3 10.3 3 12 3C13.7 3 15 4.3 15 6V8Z" fill="#777777"/>
+                                </svg>
+                            </span>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <span class="toggle-password" id="togglePassword">
+                                <svg class="eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 4.5C7 4.5 2.7 7.6 1 12C2.7 16.4 7 19.5 12 19.5C17 19.5 21.3 16.4 23 12C21.3 7.6 17 4.5 12 4.5ZM12 17C9.2 17 7 14.8 7 12C7 9.2 9.2 7 12 7C14.8 7 17 9.2 17 12C17 14.8 14.8 17 12 17ZM12 9C10.3 9 9 10.3 9 12C9 13.7 10.3 15 12 15C13.7 15 15 13.7 15 12C15 10.3 13.7 9 12 9Z" fill="#777777"/>
+                                </svg>
+                                <svg class="eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                    <path d="M12 7C9.2 7 7 9.2 7 12C7 14.8 9.2 17 12 17C14.8 17 17 14.8 17 12C17 9.2 14.8 7 12 7ZM12 15C10.3 15 9 13.7 9 12C9 10.3 10.3 9 12 9C13.7 9 15 10.3 15 12C15 13.7 13.7 15 12 15Z" fill="#777777"/>
+                                    <path d="M1.5 3.5L2.9 2.1L21.9 21.1L20.5 22.5L1.5 3.5Z" fill="#777777"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <span class="error-message" id="passwordError"></span>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkbox-custom"></span>
+                            Remember me
+                        </label>
+                        <a href="forgot-password.html" class="forgot-password">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+
+                    <div class="separator">
+                        <span>OR</span>
+                    </div>
+
+                    <button type="button" class="btn btn-google" id="googleSignIn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.65 16.86 16.81 15.68 17.58V20.44H19.27C21.37 18.49 22.56 15.65 22.56 12.25Z" fill="#4285F4"/>
+                            <path d="M12 23C15.03 23 17.58 22.02 19.27 20.44L15.68 17.58C14.7 18.26 13.46 18.66 12 18.66C9.09 18.66 6.61 16.66 5.72 14H2.07V16.95C3.75 20.32 7.16 23 12 23Z" fill="#34A853"/>
+                            <path d="M5.72 14C5.55 13.47 5.45 12.92 5.45 12.36C5.45 11.8 5.55 11.25 5.72 10.72V7.77H2.07C1.5 8.89 1.18 10.12 1.18 11.36C1.18 12.6 1.5 13.83 2.07 14.95L5.72 14Z" fill="#FBBC05"/>
+                            <path d="M12 5.36C13.6 5.36 15.03 5.93 16.18 7.02L19.42 3.78C17.58 2.07 15.03 1.18 12 1.18C7.16 1.18 3.75 3.86 2.07 7.23L5.72 10.18C6.61 7.5 9.09 5.36 12 5.36Z" fill="#EA4335"/>
+                        </svg>
+                        Continue with Google
+                    </button>
+                </form>
+
+                <div class="create-account">
+                    <p>Don't have an account? <a href="register.html" class="create-link">Create one</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="message-container" id="messageContainer"></div>
+
+    <footer class="site-footer" id="site-footer"></footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeLoginForm();
+            initializePasswordToggles();
+            initializeGoogleButtons();
+            checkRememberedEmail();
+            renderAuthFooter();
+        });
+
+        function renderAuthFooter() {
+            const footer = document.getElementById('site-footer');
+            if (footer) {
+                footer.innerHTML = '<p>&copy; 2024 Auto Care. All rights reserved. | <a href="index.html">Back to Home</a></p>';
+            }
+        }
+
+        function showMessage(message, type = 'info') {
+            const container = document.getElementById('messageContainer');
+            if (!container) return;
+
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${type}`;
+            messageEl.textContent = message;
+
+            container.appendChild(messageEl);
+
+            setTimeout(() => {
+                messageEl.style.animation = 'slideOut 0.3s ease forwards';
+                setTimeout(() => {
+                    if (container.contains(messageEl)) {
+                        container.removeChild(messageEl);
+                    }
+                }, 300);
+            }, 5000);
+        }
+
+        function clearError(elementId) {
+            const errorEl = document.getElementById(elementId);
+            if (errorEl) {
+                errorEl.textContent = '';
+            }
+        }
+
+        function setError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            if (errorEl) {
+                errorEl.textContent = message;
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function initializeLoginForm() {
+            const loginForm = document.getElementById('loginForm');
+            if (!loginForm) return;
+
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleLoginSubmit();
+            });
+        }
+
+        function handleLoginSubmit() {
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const rememberMe = document.getElementById('rememberMe');
+
+            clearError('emailError');
+            clearError('passwordError');
+            email.classList.remove('error');
+            password.classList.remove('error');
+
+            let isValid = true;
+
+            if (!email.value.trim()) {
+                setError('emailError', 'Email address is required');
+                email.classList.add('error');
+                isValid = false;
+            } else if (!isValidEmail(email.value.trim())) {
+                setError('emailError', 'Please enter a valid email address');
+                email.classList.add('error');
+                isValid = false;
+            }
+
+            if (!password.value) {
+                setError('passwordError', 'Password is required');
+                password.classList.add('error');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            const loginData = {
+                email: email.value.trim(),
+                password: password.value,
+                rememberMe: rememberMe.checked
+            };
+
+            showMessage('Login form submitted successfully. Backend integration pending.', 'success');
+            console.log('Login data:', loginData);
+        }
+
+        function initializePasswordToggles() {
+            const togglePassword = document.getElementById('togglePassword');
+            if (togglePassword) {
+                togglePassword.addEventListener('click', function() {
+                    togglePasswordVisibility('password', togglePassword);
+                });
+            }
+        }
+
+        function togglePasswordVisibility(inputId, toggleButton) {
+            const input = document.getElementById(inputId);
+            const eyeOpen = toggleButton.querySelector('.eye-open');
+            const eyeClosed = toggleButton.querySelector('.eye-closed');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeOpen.style.display = 'none';
+                eyeClosed.style.display = 'block';
+            } else {
+                input.type = 'password';
+                eyeOpen.style.display = 'block';
+                eyeClosed.style.display = 'none';
+            }
+        }
+
+        function initializeGoogleButtons() {
+            const googleSignIn = document.getElementById('googleSignIn');
+            if (googleSignIn) {
+                googleSignIn.addEventListener('click', function() {
+                    showMessage('Google Sign In requires proper OAuth 2.0 setup. Integration pending.', 'info');
+                    console.log('Google signin clicked - OAuth integration required');
+                });
+            }
+        }
+
+        function checkRememberedEmail() {
+            const rememberedEmail = localStorage.getItem('rememberedEmail');
+            if (rememberedEmail) {
+                const emailInput = document.getElementById('email');
+                const rememberMeCheckbox = document.getElementById('rememberMe');
+                if (emailInput && rememberMeCheckbox) {
+                    emailInput.value = rememberedEmail;
+                    rememberMeCheckbox.checked = true;
+                }
+            }
+
+            const rememberMeCheckbox = document.getElementById('rememberMe');
+            const emailInput = document.getElementById('email');
+
+            if (rememberMeCheckbox && emailInput) {
+                rememberMeCheckbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        localStorage.setItem('rememberedEmail', emailInput.value);
+                    } else {
+                        localStorage.removeItem('rememberedEmail');
+                    }
+                });
+
+                emailInput.addEventListener('input', function() {
+                    if (rememberMeCheckbox.checked) {
+                        localStorage.setItem('rememberedEmail', this.value);
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

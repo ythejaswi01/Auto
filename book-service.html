@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#062B60">
+  <title>Book a Service | Auto Care</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-page="booking">
+  <header class="site-header" id="site-header"></header>
+  <main class="page-shell">
+    <div class="page-intro"><span class="eyebrow">LET'S GET YOU BACK ON THE ROAD</span><h1>Book a service</h1><p>Tell us a little about your vehicle and choose a time that works for you.</p></div>
+    <form class="form-card" data-form="booking">
+      <div class="form-grid">
+        <label>Full name<input name="name" autocomplete="name" placeholder="Your name" required></label>
+        <label>Email address<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+        <label>Phone number<input name="phone" type="tel" autocomplete="tel" placeholder="(555) 000-0000" required></label>
+        <label>Vehicle<input name="vehicle" placeholder="Year, make and model" required></label>
+        <label>Service<select name="service" required><option value="" selected disabled>Select a service</option><option>Routine Maintenance</option><option>Brake Service</option><option>Engine Repair</option><option>AC Service</option><option>Other</option></select></label>
+        <label>Preferred date<input name="date" type="date" required></label>
+      </div>
+      <button class="button button-primary" type="submit">Request appointment</button>
+    </form>
+  </main>
+
+  <footer class="site-footer" id="site-footer"></footer>
+</body>
+</html>
